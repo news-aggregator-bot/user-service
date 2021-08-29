@@ -40,7 +40,7 @@ jobs:
           command: |
             set -x
             docker network create picky
-            docker-compose --project-name na -f docker-compose.yml -f docker-compose.dev.yml up --build --no-start user
+            docker-compose --project-name na -f docker-compose.yml -f docker-compose.dev.yml up --build --no-start user-service
 
       - run:
           name: docker push
