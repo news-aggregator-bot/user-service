@@ -6,4 +6,4 @@ ADD ./target/user-service.jar /app/
 USER root
 CMD ["java", "-Xmx512m", "-jar", "/app/user-service.jar"]
 
-EXPOSE 9000
+EXPOSE 9050

@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: 9050
 database:
   ddl-file: src/main/resources/db/migration/V1__init.sql
 spring:
