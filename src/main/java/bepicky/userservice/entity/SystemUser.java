@@ -55,6 +55,6 @@ public class SystemUser extends IdEntity {
     private Set<SystemRole> roles = new HashSet<>();
 
     public enum Status {
-        ENABLED, DISABLED, BLOCKED, PAUSED
+        ENABLED, DISABLED, NEW, PAUSED
     }
 }

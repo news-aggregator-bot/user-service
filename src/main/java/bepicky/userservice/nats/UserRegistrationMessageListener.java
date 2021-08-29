@@ -1,6 +1,7 @@
 package bepicky.userservice.nats;
 
-import bepicky.userservice.service.UserNotificationService;
+import bepicky.common.msg.admin.UserRegistration;
+import bepicky.userservice.service.IUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.nats.client.Connection;
 import io.nats.client.Dispatcher;
@@ -14,7 +15,8 @@ import java.io.IOException;
 
 @Component
 @Slf4j
-public class MessageAdminListener {
+public class UserRegistrationMessageListener {
+
     @Autowired
     private Connection natsConnection;
 
@@ -22,25 +24,26 @@ public class MessageAdminListener {
     private ObjectMapper om;
 
     @Autowired
-    private UserNotificationService notificationService;
+    private IUserService userService;
 
-    @Value("${topics.message.admin}")
-    private String message;
+    @Value("${topics.user.register}")
+    private String userRegistrationSubject;
 
     @PostConstruct
     public void createDispatcher() {
         Dispatcher dispatcher = natsConnection.createDispatcher(msg -> {
             try {
-                String t = om.readValue(msg.getData(), String.class);
+                UserRegistration t = om.readValue(msg.getData(), UserRegistration.class);
                 handle(t);
             } catch (IOException e) {
-                log.error("newsnote:notificaton:failed " + e.getMessage());
+                log.error("user:registration:failed " + e.getMessage());
             }
         });
-        dispatcher.subscribe(message);
+        dispatcher.subscribe(userRegistrationSubject);
     }
 
-    public void handle(String text) {
-        notificationService.notifyAdmin(text);
+    public void handle(UserRegistration u) {
+        log.info("user:registration:{}", u);
+        userService.create(u);
     }
 }

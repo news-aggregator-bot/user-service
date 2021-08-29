@@ -1,6 +1,6 @@
 package bepicky.userservice.nats;
 
-import bepicky.common.domain.admin.TextMessage;
+import bepicky.common.msg.admin.TextMessage;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.nats.client.Connection;

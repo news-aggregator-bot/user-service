@@ -1,6 +1,5 @@
 package bepicky.userservice.service;
 
-import bepicky.userservice.entity.SystemRole;
 import bepicky.userservice.nats.TextMessagePublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,16 +12,12 @@ public class SystemUserNotificationService implements UserNotificationService {
     private IUserService userService;
 
     @Autowired
-    private IRoleService roleService;
-
-    @Autowired
     private TextMessagePublisher textMessagePublisher;
 
     @Override
     @Transactional
     public void notifyAdmin(String text) {
-        SystemRole admin = roleService.findByName(SystemRole.Name.ADMIN);
-        admin.getUsers()
+        userService.findEnabledAdmins()
             .forEach(u -> textMessagePublisher.publish(u.getChatId(), text));
     }
 }

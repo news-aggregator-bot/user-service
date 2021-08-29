@@ -52,6 +52,8 @@ hystrix:
           thread:
             timeoutInMilliseconds: 10000
 topics:
+  user:
+    register: user.register
   message:
     admin: msg.admin
     text: msg.txt
