@@ -36,6 +36,10 @@ public class SystemUserService implements IUserService {
             notificationService.notifyAdmin("FAILED:user:registration:no roles provided:" + u.toString());
             return;
         }
+        if (!repository.findByChatId(u.getChatId()).isEmpty()) {
+            log.info("user:registration:exists:{}", u.getChatId());
+            return;
+        }
         Set<SystemRole> systemRoles = Arrays.stream(roles).map(SystemRole.Name::valueOf)
             .map(roleService::findByName)
             .collect(Collectors.toSet());
