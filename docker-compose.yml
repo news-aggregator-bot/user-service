@@ -1,7 +1,7 @@
 version: '3.5'
 services:
   user-service:
-    image: docker.pkg.github.com/news-aggregator-bot/artifactory/bepicky.user-service
+    image: ghcr.io/news-aggregator-bot/bepicky.user-service
     environment:
       - MYSQL_USERSERVICE_DB=${MYSQL_USERSERVICE_DB}
       - MYSQL_USERSERVICE_USER=${MYSQL_USERSERVICE_USER}
